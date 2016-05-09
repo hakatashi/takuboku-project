@@ -29,7 +29,7 @@ for line_number, line in enumerate(sys.stdin):
         else:
             line_stock.append(line)
 
-csv_writer = csv.writer(sys.stdout)
+csv_writer = csv.writer(sys.stdout, lineterminator = '\n')
 
 for tanka in tankas:
     # 青空文庫の特殊記法を除去する
