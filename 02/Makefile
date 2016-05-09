@@ -13,5 +13,4 @@ kanashiki.zip:
 	unzip -p "$<" | iconv -f SJIS -t UTF8 > "$@"
 
 clean:
-	\rm *.zip
-	\rm *.txt
+	git clean -xf
