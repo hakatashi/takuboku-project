@@ -1,0 +1,9 @@
+environment:
+  global:
+    CYG_BASH: C:\cygwin\bin\bash
+build_script:
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/02; exec 0</dev/null; make"'
+test: off
+branches:
+  only:
+    - master
