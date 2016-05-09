@@ -9,9 +9,6 @@ tanka.csv: ichiaku.csv kanashiki.csv
 %.csv: %.txt parse_aozora_text.py
 	$(PYTHON) parse_aozora_text.py < "$<" > "$@"
 
-.PHONY: texts
-texts: ichiaku.txt kanashiki.txt
-
 ichiaku.zip:
 	wget "$(ICHIAKU_URL)" -O "$@" || (rm -f "$@"; return 1)
 
@@ -23,4 +20,4 @@ kanashiki.zip:
 
 .PHONY: clean
 clean:
-	git clean -xf
+	git clean -Xf
