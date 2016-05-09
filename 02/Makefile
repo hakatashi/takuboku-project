@@ -6,17 +6,17 @@ PYTHON = python3
 tanka.csv: ichiaku.csv kanashiki.csv
 	cat $^ > "$@"
 
-%.csv: %.txt
+%.csv: %.txt parse_aozora_text.py
 	$(PYTHON) parse_aozora_text.py < "$<" > "$@"
 
 .PHONY: texts
 texts: ichiaku.txt kanashiki.txt
 
 ichiaku.zip:
-	wget "$(ICHIAKU_URL)" -O "$@"
+	wget "$(ICHIAKU_URL)" -O "$@" || (rm -f "$@"; return 1)
 
 kanashiki.zip:
-	wget "$(KANASHIKI_URL)" -O "$@"
+	wget "$(KANASHIKI_URL)" -O "$@" || (rm -f "$@"; return 1)
 
 %.txt: %.zip
 	unzip -p "$<" | iconv -f SJIS -t UTF8 > "$@"

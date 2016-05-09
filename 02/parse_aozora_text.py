@@ -17,8 +17,8 @@ for line_number, line in enumerate(sys.stdin):
         title = line
 
     # タイトルに応じて先頭の数行を読み飛ばす
-    if ((title == '一握の砂'   and line_number > 19)
-    or  (title == '悲しき玩具' and line_number > 25)):
+    if ((title == '一握の砂'   and line_number > 29)
+    or  (title == '悲しき玩具' and line_number > 13)):
         # 空行なら段落の終わりと見てストックをリセットする
         if line == '':
             # 段落が三行ならば短歌と判定して保存する
@@ -28,3 +28,12 @@ for line_number, line in enumerate(sys.stdin):
         # 空行でないなら段落ストックに行を追加する
         else:
             line_stock.append(line)
+
+csv_writer = csv.writer(sys.stdout)
+
+for tanka in tankas:
+    # 青空文庫の特殊記法を除去する
+    tanka = re.sub(r'(｜|《.+?》|［.+?］)', '', tanka)
+
+    # CSVとして書き出し
+    csv_writer.writerow([tanka])
