@@ -3,5 +3,6 @@ python:
   - 3.5
 script:
   - cd $TRAVIS_BUILD_DIR/02 && make
+  - cd $TRAVIS_BUILD_DIR/03 && make
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
