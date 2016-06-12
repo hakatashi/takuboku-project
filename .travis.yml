@@ -2,6 +2,6 @@ language: python
 python:
   - 3.5
 script:
-  - cd 02 && make
+  - cd $TRAVIS_BUILD_DIR/02 && make
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
