@@ -1,6 +1,8 @@
 environment:
   global:
     CYG_BASH: C:\cygwin\bin\bash
+install:
+  - choco install mecab -version 0.996 -f -y
 build_script:
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/02; exec 0</dev/null; make"'
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/03; exec 0</dev/null; make"'
