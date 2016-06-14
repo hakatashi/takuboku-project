@@ -8,7 +8,6 @@ addons:
   apt:
     packages:
       - mecab
-      - libmecab-dev
-      - python-mecab
+      - mecab-ipadic-utf8
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
