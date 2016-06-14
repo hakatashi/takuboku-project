@@ -8,7 +8,7 @@ tanka-tokenized.csv: tanka.csv unidic-mecab
 	$(PYTHON) tokenize_tanka.py < "$<" > "$@"
 
 unidic-mecab: unidic.zip
-	unzip -j "$<" "unidic-MLJ_14/Files/dic/unidic-mecab/*" -d "$@"
+	unzip -j -o "$<" "unidic-MLJ_14/Files/dic/unidic-mecab/*" -d "$@"
 
 unidic.zip:
 	wget "$(UNIDIC_URL)" -O "$@" || (rm -f "$@"; return 1)
@@ -30,4 +30,4 @@ kanashiki.zip:
 
 .PHONY: clean
 clean:
-	git clean -Xf
+	git clean -Xdf
