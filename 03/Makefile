@@ -4,6 +4,9 @@ UNIDIC_URL = https://dl.dropboxusercontent.com/u/134600/unidic-MLJ_14.zip
 
 PYTHON = python3
 
+tanka-tokenized.csv: tanka.csv unidic-mecab
+	$(PYTHON) tokenize_tanka.py < "$<" > "$@"
+
 unidic-mecab: unidic.zip
 	unzip -j "$<" "unidic-MLJ_14/Files/dic/unidic-mecab/*" -d "$@"
 
