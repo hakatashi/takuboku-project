@@ -20,7 +20,9 @@ for i in range(100):
     # 30形態素ぶん生成する
     for i in range(30):
         # 2-gramが利用可能な場合、70%の確率でそれを利用する
-        if tokens[-2] in bigram and tokens[-1] in bigram[tokens[-2]] and random() < .7:
+        if (tokens[-2] in bigram and
+            tokens[-1] in bigram[tokens[-2]] and
+            random() < .7):
             next_token_dict = bigram[tokens[-2]][tokens[-1]]
         # 1-gramが利用可能な場合、それを利用する
         elif tokens[-1] in unigram:
