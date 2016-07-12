@@ -4,6 +4,9 @@ UNIDIC_URL = https://dl.dropboxusercontent.com/u/134600/unidic-MLJ_14.zip
 
 PYTHON = python3
 
+marcov-dict.json: tanka-tokenized.csv create_marcov_dict.py
+	$(PYTHON) create_marcov_dict.py < "$<" > "$@"
+
 tanka-tokenized.csv: tanka.csv unidic-mecab tokenize_tanka.py
 	$(PYTHON) tokenize_tanka.py < "$<" > "$@"
 
