@@ -9,5 +9,6 @@ before_install:
 script:
   - cd $TRAVIS_BUILD_DIR/02 && make
   - cd $TRAVIS_BUILD_DIR/03 && make
+  - cd $TRAVIS_BUILD_DIR/04 && make
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
