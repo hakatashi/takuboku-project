@@ -5,11 +5,11 @@ import csv
 import json
 import random
 
-if len(sys.argv) != 4:
-    print('This program must be called with 3 arguments')
+if len(sys.argv) != 3:
+    print('This program must be called with 2 arguments')
     sys.exit()
 
-[this_file, train_file, test_file, valid_file] = sys.argv
+[this_file, train_file, valid_file] = sys.argv
 
 tankas = []
 
@@ -27,19 +27,14 @@ for row in csv.reader(iter(sys.stdin.readline, '')):
 
 random.shuffle(tankas)
 tankas_len = len(tankas)
-train_tankas_len = int(tankas_len * 0.8)
-test_tankas_len = int(tankas_len * 0.9)
+train_tankas_len = int(tankas_len * 0.9)
 valid_tankas_len = int(tankas_len * 1.0)
 
 train_tankas = tankas[0:train_tankas_len]
-test_tankas = tankas[train_tankas_len:test_tankas_len]
-valid_tankas = tankas[test_tankas_len:valid_tankas_len]
+valid_tankas = tankas[train_tankas_len:valid_tankas_len]
 
 with open(train_file, 'w') as file:
     file.write('\n'.join(train_tankas))
-
-with open(test_file, 'w') as file:
-    file.write('\n'.join(test_tankas))
 
 with open(valid_file, 'w') as file:
     file.write('\n'.join(valid_tankas))

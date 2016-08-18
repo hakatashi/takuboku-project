@@ -5,7 +5,10 @@ RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b
 
 PYTHON = python3
 
-rnnlm.model: rnnlm/rnnlm rnnlm-train.txt rnnlm-test.txt rnnlm-valid.txt
+rnnlm-generated.txt: rnnlm.model rnnlm/rnnlm
+	rnnlm/rnnlm -rnnlm "$<" -gen 100000 -debug 0 > "$@"
+
+rnnlm.model: rnnlm/rnnlm rnnlm-train.txt rnnlm-valid.txt
 	rnnlm/rnnlm -train rnnlm-train.txt -valid rnnlm-valid.txt -rnnlm "$@" -debug 2 -hidden 200 -class 100 -bptt 5 -bptt-block 10 -min-improvement 1.001
 
 rnnlm/rnnlm: rnnlm
@@ -19,8 +22,8 @@ rnnlm: rnnlm.tar.gz
 rnnlm.tar.gz:
 	wget "$(RNNLM_URL)" -O "$@" || (rm -f "$@"; return 1)
 
-rnnlm-train%txt rnnlm-test%txt rnnlm-valid%txt: tanka-tokenized.csv create_rnnlm_datasets.py
-	$(PYTHON) create_rnnlm_datasets.py rnnlm-train.txt rnnlm-test.txt rnnlm-valid.txt < "$<"
+rnnlm-train%txt rnnlm-valid%txt: tanka-tokenized.csv create_rnnlm_datasets.py
+	$(PYTHON) create_rnnlm_datasets.py rnnlm-train.txt rnnlm-valid.txt < "$<"
 
 marcov-chained.txt: marcov-dict.json chain_marcov.py
 	$(PYTHON) chain_marcov.py < "$<" > "$@"

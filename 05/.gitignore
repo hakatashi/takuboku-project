@@ -5,3 +5,4 @@ rnnlm
 *.txt
 *.csv
 *.json
+*.model
