@@ -4,6 +4,11 @@ UNIDIC_URL = https://dl.dropboxusercontent.com/u/134600/unidic-MLJ_14.zip
 
 PYTHON = python3
 
+rnnlm: rnnlm-train.txt rnnlm-test.txt rnnlm-valid.txt
+
+rnnlm-train%txt rnnlm-test%txt rnnlm-valid%txt: tanka-tokenized.csv create_rnnlm_datasets.py
+	$(PYTHON) create_rnnlm_datasets.py rnnlm-train.txt rnnlm-test.txt rnnlm-valid.txt < "$<"
+
 marcov-chained.txt: marcov-dict.json chain_marcov.py
 	$(PYTHON) chain_marcov.py < "$<" > "$@"
 
