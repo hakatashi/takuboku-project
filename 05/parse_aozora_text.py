@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import io
 import re
 import sys
 import csv
@@ -8,7 +9,8 @@ import csv
 line_stock = []
 tankas = []
 
-for line_number, line in enumerate(sys.stdin):
+input_stream = io.TextIOWrapper(sys.stdin.buffer, encoding='utf-8')
+for line_number, line in enumerate(input_stream):
     # 改行を除去
     line = line.rstrip()
 
