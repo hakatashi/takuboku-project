@@ -5,6 +5,9 @@ RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b
 
 PYTHON = python3
 
+rnnlm.model: rnnlm/rnnlm rnnlm-train.txt rnnlm-test.txt rnnlm-valid.txt
+	rnnlm/rnnlm -train rnnlm-train.txt -valid rnnlm-valid.txt -rnnlm "$@" -debug 2 -hidden 200 -class 100 -bptt 5 -bptt-block 10 -min-improvement 1.001
+
 rnnlm/rnnlm: rnnlm
 	$(MAKE) -C "$<"
 
