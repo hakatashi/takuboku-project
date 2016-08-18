@@ -11,6 +11,7 @@ rnnlm/rnnlm: rnnlm
 rnnlm: rnnlm.tar.gz
 	mkdir -p "$@"
 	tar xvzf "$<" -C "$@" --strip-components 1
+	echo "CC = g++" >> rnnlm/makefile
 
 rnnlm.tar.gz:
 	wget "$(RNNLM_URL)" -O "$@" || (rm -f "$@"; return 1)
