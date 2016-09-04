@@ -2,6 +2,9 @@ language: python
 python:
   - 3.5
 sudo: required
+os:
+  - linux
+  - osx
 dist: trusty
 before_install:
   - sudo apt-get -qq update
