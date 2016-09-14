@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+import re
 import sys
 import csv
 import json
@@ -12,12 +13,18 @@ marcov = json.loads(marcov_json)
 
 unigram = marcov['unigram']
 bigram = marcov['bigram']
+token_dict = marcov['token_dict']
 
-for i in range(100):
+tankas = 0
+
+# 短歌が100個たまるまで実行する
+while tankas < 100:
     # 復元する短歌を初期トークンとして設定
     tokens = ['大跨に緣側を', '歩け', 'ば']
 
-    # 30形態素ぶん生成する
+    clauses = []
+
+    # 最大で30形態素ぶん生成する
     for i in range(30):
         # 2-gramが利用可能な場合、70%の確率でそれを利用する
         if (tokens[-2] in bigram and
@@ -36,4 +43,56 @@ for i in range(100):
         next_token = next_tokens[math.floor(random() * len(next_tokens))]
         tokens.append(next_token)
 
+        # 形態素の品詞情報などを取得する
+        next_token_speech = token_dict[next_token][1]
+        previous_token_speech = token_dict[tokens[-2]][1]
+        next_token_pronounce = token_dict[next_token][2]
+        next_token_length = len(re.sub(r'[ァィゥェォャュョ]', r'', next_token_pronounce))
+
+        if (
+            # 付属語を前の文節に追い込む
+            next_token_speech in ['助詞', '助動詞'] or
+            # 前の形態素が接頭辞の場合は前の文節に追い込む
+            previous_token_speech == '接頭辞' or
+            # 動詞が連続する場合は前の文節に追い込む
+            (previous_token_speech == '動詞' and next_token_speech == '動詞')):
+
+            if len(clauses) == 0:
+                clauses.append(0)
+
+            clauses[-1] += next_token_length
+        else:
+            clauses.append(next_token_length)
+
+
+    # 文節分けしたデータを57577の形に合うように当てはめていく
+    target_regions = [5, 7, 7]
+    generated_regions = [0]
+
+    for clause in clauses:
+        if (len(generated_regions) == 3 or
+            generated_regions[-1] < target_regions[len(generated_regions) - 1]):
+            generated_regions[-1] += clause
+        else:
+            generated_regions.append(clause)
+
+    if len(generated_regions) != 3:
+        continue
+
+    # 字余りと字足らずの量を計算する
+    jitarazu = 0
+    jiamari = 0
+
+    for (region, target_region) in zip(generated_regions, target_regions):
+        if region < target_region:
+            jitarazu += target_region - region
+        if region > target_region:
+            jiamari += region - target_region
+
+    # 字余りが1以内でない場合は切り捨てる
+    if jitarazu > 0 or jiamari > 1:
+        continue
+
     print(''.join(tokens))
+
+    tankas += 1
