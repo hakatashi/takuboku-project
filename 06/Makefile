@@ -5,6 +5,9 @@ RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b
 
 PYTHON = python3
 
+rnnlm-tanka.txt: filter_rnnlm.py marcov-dict.json rnnlm-generated.txt
+	$(PYTHON) filter_rnnlm.py marcov-dict.json < rnnlm-generated.txt > "$@"
+
 rnnlm-generated.txt: rnnlm.model rnnlm/rnnlm
 	rnnlm/rnnlm -rnnlm "$<" -gen 100000 -debug 0 > "$@"
 
