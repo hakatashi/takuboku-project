@@ -2,11 +2,17 @@ ICHIAKU_URL = http://www.aozora.gr.jp/cards/000153/files/816_ruby_5621.zip
 KANASHIKI_URL = http://www.aozora.gr.jp/cards/000153/files/815_ruby_20543.zip
 UNIDIC_URL = https://dl.dropboxusercontent.com/u/134600/unidic-MLJ_14.zip
 RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b.tgz
+AOZORA2VEC_URL = https://github.com/hakatashi/aozora2vec/releases/download/20161013/
+
+AOZORA2VEC_MODELS = aozora2vec-iter50.model aozora2vec-iter50.model.syn0.npy aozora2vec-iter50.model.syn1.npy
 
 PYTHON = python3
 
-tanka-vectors.txt: infer_vectors.py rnnlm-tanka.txt marcov-chained.txt
+tanka-vectors.txt: infer_vectors.py rnnlm-tanka.txt marcov-chained.txt $(AOZORA2VEC_MODELS)
 	cat marcov-chained.txt rnnlm-tanka.txt | $(PYTHON) infer_vectors.py > "$@"
+
+$(AOZORA2VEC_MODELS):
+	wget "$(AOZORA2VEC_URL)$@" -O "$@" || (rm -f "$@"; return 1)
 
 rnnlm-tanka.txt: filter_rnnlm.py marcov-dict.json rnnlm-generated.txt
 	$(PYTHON) filter_rnnlm.py marcov-dict.json < rnnlm-generated.txt > "$@"
