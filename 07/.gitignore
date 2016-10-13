@@ -6,4 +6,5 @@ rnnlm
 *.csv
 *.npy
 *.json
+*.temp
 *.model
