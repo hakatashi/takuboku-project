@@ -93,6 +93,10 @@ while tankas < 100:
     if jitarazu > 0 or jiamari > 1:
         continue
 
-    print(''.join(tokens))
+    rows = [''.join(tokens)]
+    for token in tokens[3:]:
+        rows.append(token_dict[token][3])
+
+    print(' '.join(rows))
 
     tankas += 1
