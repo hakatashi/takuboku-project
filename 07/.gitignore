@@ -4,5 +4,6 @@ rnnlm
 *.zip
 *.txt
 *.csv
+*.npy
 *.json
 *.model
