@@ -1,1 +1,2 @@
 mecab-python3==0.7
+gensim==0.13.1
