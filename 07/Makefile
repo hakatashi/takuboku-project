@@ -5,6 +5,9 @@ RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b
 
 PYTHON = python3
 
+tanka-vectors.txt: infer_vectors.py rnnlm-tanka.txt marcov-chained.txt
+	cat marcov-chained.txt rnnlm-tanka.txt | $(PYTHON) infer_vectors.py > "$@"
+
 rnnlm-tanka.txt: filter_rnnlm.py marcov-dict.json rnnlm-generated.txt
 	$(PYTHON) filter_rnnlm.py marcov-dict.json < rnnlm-generated.txt > "$@"
 
@@ -13,6 +16,7 @@ rnnlm-generated.txt: rnnlm.model rnnlm/rnnlm
 
 rnnlm.model: rnnlm/rnnlm rnnlm-train.txt rnnlm-valid.txt
 	rnnlm/rnnlm -train rnnlm-train.txt -valid rnnlm-valid.txt -rnnlm "$@" -debug 2 -hidden 200 -class 100 -bptt 5 -bptt-block 10 -min-improvement 1.001
+	touch "$@"
 
 rnnlm/rnnlm: rnnlm
 	$(MAKE) -C "$<"
