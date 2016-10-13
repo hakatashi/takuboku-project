@@ -1,7 +1,7 @@
 ICHIAKU_URL = http://www.aozora.gr.jp/cards/000153/files/816_ruby_5621.zip
 KANASHIKI_URL = http://www.aozora.gr.jp/cards/000153/files/815_ruby_20543.zip
 UNIDIC_URL = https://dl.dropboxusercontent.com/u/134600/unidic-MLJ_14.zip
-RNNLM_URL = https://googledrive.com/host/0ByxdPXuxLPS5RFM5dVNvWVhTd0U/rnnlm-0.4b.tgz
+RNNLM_URL = http://www.fit.vutbr.cz/~imikolov/rnnlm/rnnlm-0.3e.tgz
 
 PYTHON = python3
 
@@ -19,7 +19,7 @@ rnnlm/rnnlm: rnnlm
 
 rnnlm: rnnlm.tar.gz
 	mkdir -p "$@"
-	tar xvzf "$<" -C "$@" --strip-components 1
+	tar xvzf "$<" -C "$@"
 	echo "CC = g++" >> rnnlm/makefile
 
 rnnlm.tar.gz:
