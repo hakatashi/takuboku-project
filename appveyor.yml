@@ -4,6 +4,10 @@ environment:
 build_script:
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/02; exec 0</dev/null; make"'
   - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/03; exec 0</dev/null; make"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/04; exec 0</dev/null; make"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/05; exec 0</dev/null; make"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/06; exec 0</dev/null; make"'
+  - '%CYG_BASH% -lc "cd $APPVEYOR_BUILD_FOLDER/07; exec 0</dev/null; make"'
 test: off
 branches:
   only:
