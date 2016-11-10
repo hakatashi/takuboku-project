@@ -8,6 +8,15 @@ AOZORA2VEC_MODELS = aozora2vec-iter50.model aozora2vec-iter50.model.syn0.npy aoz
 
 PYTHON = python3
 
+tanka-takuboku-vectors.txt: infer_takuboku_vectors.py tanka-tokenized.csv $(AOZORA2VEC_MODELS)
+	$(PYTHON) infer_takuboku_vectors.py < tanka-tokenized.csv > "$@"
+
+tanka-dummy-vectors.txt: infer_dummy_vectors.py dummy-tanka.txt $(AOZORA2VEC_MODELS)
+	$(PYTHON) infer_dummy_vectors.py < dummy-tanka.txt > "$@"
+
+dummy-tanka.txt: marcov-dict.json generate_dummy_tanka.py
+	$(PYTHON) generate_dummy_tanka.py < marcov-dict.json > "$@"
+
 tanka-vectors.txt: infer_vectors.py rnnlm-tanka.txt marcov-chained.txt $(AOZORA2VEC_MODELS)
 	cat marcov-chained.txt rnnlm-tanka.txt | $(PYTHON) infer_vectors.py > "$@"
 
