@@ -8,6 +8,8 @@ AOZORA2VEC_MODELS = aozora2vec-iter50.model aozora2vec-iter50.model.syn0.npy aoz
 
 PYTHON = python3
 
+all: tanka-dummy-vectors.txt tanka-takuboku-vectors.txt
+
 tanka-takuboku-vectors.txt: infer_takuboku_vectors.py tanka-tokenized.csv $(AOZORA2VEC_MODELS)
 	$(PYTHON) infer_takuboku_vectors.py < tanka-tokenized.csv > "$@"
 
