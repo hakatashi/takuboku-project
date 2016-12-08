@@ -16,5 +16,7 @@ script:
   - cd $TRAVIS_BUILD_DIR/05 && make
   - cd $TRAVIS_BUILD_DIR/06 && make
   - cd $TRAVIS_BUILD_DIR/07 && make
+  - cd $TRAVIS_BUILD_DIR/08 && make
+  - cd $TRAVIS_BUILD_DIR/09 && make
 notifications:
   webhooks: http://webhook.hakatashi.com/travis
