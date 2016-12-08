@@ -1,0 +1,10 @@
+unidic-mecab
+rnnlm
+*.gz
+*.zip
+*.txt
+*.csv
+*.npy
+*.json
+*.temp
+*.model
