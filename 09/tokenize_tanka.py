@@ -10,7 +10,7 @@ csv_writer = csv.writer(sys.stdout, lineterminator = '\n')
 
 # UniDic近代文語辞書を使用する
 arguments = [
-    '--node-format=%m\\t%f[0]\\t%f[6]\\t%f[7]\\n',
+    '--node-format=%m\\t%f[0]\\t%f[9]\\t%f[7]\\n',
     '--unk-format=%m\\t%f[0]\\t%m\\t%m\\n',
     '--eos-format=',
     '--dicdir=unidic-mecab',
