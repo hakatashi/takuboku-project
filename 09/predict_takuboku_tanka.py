@@ -3,7 +3,7 @@
 import sys
 import csv
 from sklearn.svm import SVC
-from sklearn.model_selection import train_test_split
+from sklearn.model_selection import cross_val_score
 import numpy as np
 
 # 引数の数をチェック
@@ -23,17 +23,14 @@ tanka_vectors = np.genfromtxt(tanka_vectors_file, delimiter=' ', dtype=None)
 X = np.concatenate((dummy_vectors, takuboku_vectors))
 y = np.concatenate((np.zeros(len(dummy_vectors)), np.ones(len(takuboku_vectors))))
 
-# 学習精度を測るための事前分類機を用意
+# 学習精度を測るための分類機を用意
 pre_classifier = SVC(kernel='linear')
 
-# 5分割交差検定で入力データを分割する
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)
+# 5分割交差検定で学習精度を計測
+scores = cross_val_score(pre_classifier, X, y, cv=5)
 
-# 学習用データで事前分類機を学習
-pre_classifier.fit(X_train, y_train)
-
-# テスト用データに対して事前分類機を適用しスコアを報告
-print('SVM Score:', pre_classifier.score(X_test, y_test))
+# 計測したスコアを報告
+print('SVM Score:', scores.mean())
 
 # 同じパラメータで今度はすべての入力データを用いて学習を行う
 classifier = SVC(kernel='linear', probability=True)
