@@ -33,7 +33,7 @@ rnnlm-tanka.txt: filter_rnnlm.py marcov-dict.json rnnlm-generated.txt
 	$(PYTHON) filter_rnnlm.py marcov-dict.json < rnnlm-generated.txt > "$@"
 
 rnnlm-generated.txt: rnnlm.model rnnlm/rnnlm
-	rnnlm/rnnlm -rnnlm "$<" -gen 100000 -debug 0 > "$@"
+	rnnlm/rnnlm -rnnlm "$<" -gen 1000000 -debug 0 > "$@"
 
 rnnlm.model: rnnlm/rnnlm rnnlm-train.txt rnnlm-valid.txt
 	rnnlm/rnnlm -train rnnlm-train.txt -valid rnnlm-valid.txt -rnnlm "$@" -debug 2 -hidden 200 -class 100 -bptt 5 -bptt-block 10 -min-improvement 1.001

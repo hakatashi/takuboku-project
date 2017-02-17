@@ -18,7 +18,7 @@ token_dict = marcov['token_dict']
 tankas = 0
 
 # 短歌が100個たまるまで実行する
-while tankas < 100:
+while tankas < 1000:
     # 復元する短歌を初期トークンとして設定
     tokens = ['大跨に緣側を', '歩け', 'ば']
 
